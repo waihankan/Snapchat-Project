@@ -2,6 +2,11 @@
 
 Snap the World, a simple flight catalog website designed to help travelers (especially points and miles enthusiasts) discover flight options between major global cities. This project was built as part of the Snap Academies program to learn core web development skills (html, css, javascript) and some basic data structures.
 
+
+> ⚠️ Note: This dataset is for demo purposes only — it’s not real-time, not complete, and may include inaccurate data. Please don’t use it to book actual flights 😅.
+
+> ✈️ For a better experience testing the search, filter, and sort features, try flights between San Francisco (SFO) and Los Angeles (LAX) — in either direction. These routes have been populated with a variety of classes and prices to showcase the full functionality of the site.
+
 ---
 
 
