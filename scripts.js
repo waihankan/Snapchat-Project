@@ -36,14 +36,16 @@ fetch("./flights.json")
       flights = data;
       // build suggestion set
       flights.forEach(flight => {
-        cityAirportSuggestions.add(`${flight.departureCity} (${flight.departureAirportCode})`)
-        cityAirportSuggestions.add(`${flight.destinationCity} (${flight.destinationAirportCode})`)
+        cityAirportSuggestions.add(`${flight.departureCity}, ${flight.departureCountry} (${flight.departureAirportCode})`)
+        cityAirportSuggestions.add(`${flight.destinationCity}, ${flight.destinationCountry} (${flight.destinationAirportCode})`)
       });
 
       console.log(cityAirportSuggestions)
       randomFlights = getRandomFlights(numRandomFlights)
       // console.log(randomFlights)
       renderDestinations(randomFlights)
+      setupAutocomplete("fromInput", "fromSuggestions");
+      setupAutocomplete("toInput", "toSuggestions");
     })
   .catch(error => console.error("Failed to load flights data:", error));
 
@@ -81,6 +83,69 @@ function renderDestinations(flights) {
     container.appendChild(card);
   });
 }
+
+
+// Suggestions Box for user to choose the city / airport / country
+function setupAutocomplete(inputId, suggestionListId) {
+  const input = document.getElementById(inputId);
+  const suggestions = document.getElementById(suggestionListId);
+
+  input.addEventListener("input", () => {
+    const val = input.value.toLowerCase();
+    suggestions.innerHTML = ""; // clear prev suggestions
+    console.log(val.length)
+
+    // hide the border of suggestion block when there's nothing in input box
+    if (val.length === 0) {
+      suggestions.style.display = "none";
+      return;
+    }
+
+    const matches = [...cityAirportSuggestions].filter(city => city.toLowerCase().includes(val)).slice(0, 7);
+    // console.log(matches);
+
+    if (matches.length === 0) {
+      suggestions.style.display = "none";
+      return;
+    }
+
+    // manipulate DOM
+    // render matches result in suggestions element
+    matches.forEach(city => {
+      const li = document.createElement("li");
+      li.textContent = city;
+      // make the list clickable and change input value
+      li.addEventListener("click", () => {
+        input.value = city;
+        suggestions.innerHTML = "";       // clear suggestions list
+        suggestions.style.display = "none";
+      })
+      suggestions.appendChild(li);
+    });
+    suggestions.style.display = "block";
+  });
+
+  // clear the suggestion list once clicked (technically 150ms after) outside
+  input.addEventListener("blur", () => {
+    setTimeout(() => {
+      suggestions.innerHTML = "";
+      suggestions.style.display = "none";
+    }, 150);
+  });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ==============================
 // Search Feature

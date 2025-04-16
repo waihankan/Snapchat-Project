@@ -14,17 +14,30 @@
 <body>
   <header>
     <h1> Explore Destinations ✈️</h1>
-    <input type="text" id="fromInput" placeholder="Where from?">
-    <input type="text" id="searchInput" placeholder="Where to?">
 
-    <select id="flightClass">
-      <option value="economy"> Economy </option>
-      <option value="business"> Business </option>
-      <option value="first"> First </option>
-    </select>
+    <div class="search-bar">
+      <div class="autocomplete-wrapper">
+        <input type="text" id="fromInput" placeholder="Where from?" autocomplete="off" onClick="this.select();">
+        <ul class="suggestions" id="fromSuggestions"></ul>
+      </div>
+      <div class="autocomplete-wrapper">
+        <input type="text" id="toInput" placeholder="Where to?" autocomplete="off" onClick="this.select();">
+        <ul class=" suggestions" id="toSuggestions">
+          <!-- <li>1</li>
+          <li>2</li>
+          <li>3</li> -->
+        </ul>
+      </div>
 
+      <select id="flightClass">
+        <option value="economy"> Economy </option>
+        <option value="business"> Business </option>
+        <option value="first"> First </option>
+      </select>
 
-    <button onclick="sortByPoints()"> Search </button>
+      <button onclick="sortByPoints()"> Search </button>
+    </div>
+
   </header>
 
   <main>
