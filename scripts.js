@@ -1,10 +1,12 @@
 
-// Load flights from json file
 let flights = [];
-let renderedFlights = [];
-let cityAirportSuggestions = new Set();       // for suggestion in searh bar
+let renderedFlights = [];                     // keep track of what's on screen
+let cityAirportSuggestions = new Set();       // for suggestions in searh bar
 const numRandomFlights = 12;                  // for initial rendering
 
+// ==============================
+// Load flights from json file
+// ==============================
 fetch("./flights.json")
   .then(response => response.json())
   .then(
@@ -80,7 +82,10 @@ function renderDestinations(flights) {
 }
 
 
-// Suggestions Box for user to choose the city / airport / country
+// ==============================
+// Suggestions Box for user to 
+// choose the city / airport / country
+// ==============================
 function setupAutocomplete(inputId, suggestionListId) {
   const input = document.getElementById(inputId);
   const suggestions = document.getElementById(suggestionListId);
@@ -135,7 +140,6 @@ function extractAirportCode(inputStr) {
   return match ? match[1].toLowerCase() : null;
 }
 
-
 function searchFlights() {
   const fromVal = document.getElementById("fromInput").value.toLowerCase();
   const toVal = document.getElementById("toInput").value.toLowerCase();
@@ -167,7 +171,9 @@ function searchFlights() {
 }
 
 
+// ==============================
 // sort the renderedFlights based on user choice
+// ==============================
 function sortFlights() {
   if (renderedFlights.length === 0) {
     return;

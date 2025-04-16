@@ -178,6 +178,11 @@ header button:hover {
   margin: 0 auto;
 }
 
+.no-results small {
+  font-size: 0.9rem;
+  color: #767373;
+}
+
 .catalog-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
