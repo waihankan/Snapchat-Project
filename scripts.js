@@ -1,12 +1,9 @@
 
-
-
-
-
 // Load flights from json file
 let flights = [];
+let renderedFlights = [];
 let cityAirportSuggestions = new Set();       // for suggestion in searh bar
-const numRandomFlights = 12;                  // for initial rendering
+const numRandomFlights = 13;                  // for initial rendering
 
 fetch("./flights.json")
   .then(response => response.json())
@@ -21,8 +18,9 @@ fetch("./flights.json")
 
       // console.log(cityAirportSuggestions)
       randomFlights = getRandomFlights(numRandomFlights)
+      renderedFlights = randomFlights
       // console.log(randomFlights)
-      renderDestinations(randomFlights)
+      renderDestinations(renderedFlights)
       setupAutocomplete("fromInput", "fromSuggestions");
       setupAutocomplete("toInput", "toSuggestions");
     })
@@ -34,13 +32,31 @@ function getRandomFlights(n = 6) {
   return shuffled.slice(0, n);
 }
 
+function loadRandomFlights() {
+  const randomFlights = getRandomFlights(numRandomFlights);
+  renderedFlights = randomFlights;
+  renderDestinations(renderedFlights);
+}
+
 
 // ==============================
 // Render Destination Cards
 // ==============================
 function renderDestinations(flights) {
   const container = document.getElementById("catalog");
+  const sortSelect = document.getElementById("sortOption")
+  const noResult = document.getElementById("noResultsMessage")
   container.innerHTML = "";
+
+  // do not render the sorting option if no data 
+  if (flights.length === 0) {
+    sortSelect.classList.add("hidden");
+    noResult.classList.remove("hidden");
+    return;
+  } else {
+    sortSelect.classList.remove("hidden");
+    noResult.classList.add("hidden");
+  }
 
   flights.forEach(flight => {
     // console.log(flight);
@@ -146,5 +162,35 @@ function searchFlights() {
     return matchesDepartures && matchesDestinations && matchesClass;
   });
 
-  renderDestinations(results);
+  renderedFlights = results;
+  renderDestinations(renderedFlights);
+}
+
+
+// sort the renderedFlights based on user choice
+function sortFlights() {
+  if (renderedFlights.length === 0) {
+    return;
+  }
+
+  // make a copy of renderedFlights
+  let sortedFlights = [...renderedFlights];
+  const sortOption = document.getElementById("sortOption").value;
+  switch (sortOption) {
+    case "points-asc":
+      sortedFlights.sort((a, b) => a.points - b.points);
+      break;
+    case "points-desc":
+      sortedFlights.sort((a, b) => b.points - a.points);
+      break;
+    case "usd-asc":
+      sortedFlights.sort((a, b) => a.inUSD - b.inUSD);
+      break;
+    case "usd-desc":
+      sortedFlights.sort((a, b) => b.inUSD - a.inUSD);
+      break;
+    default:
+      return
+  };
+  renderDestinations(sortedFlights);
 }

@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Travel Destinations" />
+  <meta name="description" content="Snap the world 🌍" />
+
 
   <title>Travel Destinations</title>
   <link rel="stylesheet" href="style.css" />
@@ -13,7 +14,14 @@
 
 <body>
   <header>
-    <h1> Explore Destinations ✈️</h1>
+
+    <nav class="navbar">
+      <a href="#" class="nav-title" onclick="loadRandomFlights()">Snap the World ✈️</a>
+      <ul class="nav-links">
+        <li><a href="#" onclick="loadRandomFlights()">Wanna Explore 🌎 ?</a></li>
+        <li><a href="#about"> About Me</a></li>
+      </ul>
+    </nav>
 
     <div class="search-bar">
       <div class="autocomplete-wrapper">
@@ -42,9 +50,30 @@
   </header>
 
   <main>
+    <div class="catalog-header">
+      <select id="sortOption" class="sort-select hidden" onchange="sortFlights()">
+        <option value="">Sort By</option>
+        <option value="points-asc">Points (Low → High)</option>
+        <option value="points-desc">Points (High → Low)</option>
+        <option value="usd-asc">Price (Low → High)</option>
+        <option value="usd-desc">Price (High → Low)</option>
+      </select>
+    </div>
+    <div id="noResultsMessage" class="no-results hidden">
+      <p>🫢 Oops.. No flights found. Try adjusting your filters or search terms.</p>
+    </div>
     <div class="catalog-container" id="catalog"></div>
   </main>
 
+  <section id="about" style="padding: 4rem 2rem; max-width: 800px; margin: 0 auto; text-align: center;">
+    <h2>About Me</h2>
+    <p>👋 Hey there! I’m Wai Han, and I built this flight catalog as part of my Snap Academies project. This will be a
+      cool website for credit card stackers who're maximizing their rewards!
+    </p>
+    <p> I'm passionate about traveling, hiking, and learning new things. If you’re into Machine Learning,
+      check out my (admittedly messy) notes <a href="https://waihankan.github.io/DigitalBrain/CS189/"
+        target="_blank">here</a></p>
+  </section>
 
 </body>
 
