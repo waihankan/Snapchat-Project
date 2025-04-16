@@ -37,6 +37,18 @@ function getRandomFlights(n = 6) {
 function loadRandomFlights() {
   const randomFlights = getRandomFlights(numRandomFlights);
   renderedFlights = randomFlights;
+
+  // reset sort options
+  const sortSelect = document.getElementById("sortOption");
+  if (sortSelect) {
+    sortSelect.value = "";            // set to default (no sort)
+  }
+
+  // clear both departure and destination inputs
+  document.getElementById("fromInput").value = "";
+  document.getElementById("toInput").value = "";
+  document.getElementById("flightClass").value = "";
+
   renderDestinations(renderedFlights);
 }
 
