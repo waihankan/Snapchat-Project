@@ -48,7 +48,13 @@ header h1 {
   padding: 0px;
 }
 
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
 .nav-links li a {
+  display: inline-block;
   text-decoration: none;
   color: #374151;
   font-weight: 500;
@@ -58,9 +64,6 @@ header h1 {
 .nav-links li a:hover {
   color: #6c63ff;
 }
-
-
-
 
 .search-bar {
   display: flex;

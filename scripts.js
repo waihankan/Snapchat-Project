@@ -3,7 +3,7 @@
 let flights = [];
 let renderedFlights = [];
 let cityAirportSuggestions = new Set();       // for suggestion in searh bar
-const numRandomFlights = 13;                  // for initial rendering
+const numRandomFlights = 12;                  // for initial rendering
 
 fetch("./flights.json")
   .then(response => response.json())
