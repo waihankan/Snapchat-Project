@@ -52,7 +52,6 @@ function loadRandomFlights() {
   renderDestinations(renderedFlights);
 }
 
-
 // ==============================
 // Render Destination Cards
 // ==============================
